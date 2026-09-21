@@ -1275,6 +1275,92 @@
       color: var(--text-muted);
     }
 
+    /* Expandable courses */
+    .edu-expand-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-primary);
+      color: var(--accent-cyan);
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .edu-expand-btn:hover {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 15px var(--glow-cyan);
+    }
+    .edu-chevron {
+      transition: transform var(--transition);
+    }
+    .edu-expand-btn.open .edu-chevron {
+      transform: rotate(180deg);
+    }
+    .edu-courses {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-top: 0;
+    }
+    .edu-courses.open {
+      max-height: 2000px;
+      margin-top: 16px;
+    }
+    .edu-courses-section {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent-purple);
+      margin: 16px 0 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+    .edu-courses-section:first-child { margin-top: 0; }
+    .edu-course-item {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .edu-course-item:last-child { border-bottom: none; }
+    .edu-course-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3px;
+    }
+    .edu-course-code {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-cyan);
+    }
+    .edu-course-credits {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 7px;
+    }
+    .edu-course-name {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+    }
+    .edu-course-desc {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
     @media (max-width: 768px) {
       .education-grid { grid-template-columns: 1fr; }
     }
@@ -2083,21 +2169,233 @@
       </div>
 
       <div class="education-grid">
+        <!-- MBA Card -->
         <div class="edu-card reveal-left">
           <div class="edu-icon"><i class="fas fa-university"></i></div>
           <div class="edu-degree">Master of Business Administration</div>
           <div class="edu-school">Georgia Institute of Technology</div>
           <div class="edu-concentration">Scheller College of Business</div>
-          <div class="edu-concentration">Operations Management & Supply Chain</div>
+          <div class="edu-concentration">Operations Management &amp; Supply Chain</div>
           <div class="edu-date">Graduated May 2025</div>
+
+          <button class="edu-expand-btn" onclick="toggleCourses('mba-courses', this)" aria-expanded="false">
+            <i class="fas fa-book-open"></i> View Courses <i class="fas fa-chevron-down edu-chevron"></i>
+          </button>
+
+          <div class="edu-courses" id="mba-courses">
+            <div class="edu-courses-section">Core Courses</div>
+
+            <div class="edu-course-item">
+              <div class="edu-course-header">
+                <span class="edu-course-code">MGT 6500</span>
+                <span class="edu-course-credits">1.5 cr</span>
+              </div>
+              <div class="edu-course-name">Foundations of Data Analysis</div>
+              <div class="edu-course-desc">Statistical and optimization-based analytical tools for decision support — descriptive statistics, probability, sampling, hypothesis testing, regression, queuing, and simulation.</div>
+            </div>
+
+            <div class="edu-course-item">
+              <div class="edu-course-header">
+                <span class="edu-course-code">MGT 6501</span>
+                <span class="edu-course-credits">1.5 cr</span>
+              </div>
+              <div class="edu-course-name">Operations Management</div>
+              <div class="edu-course-desc">Strategic design and management of processes for delivering products and services — cost, delivery, flexibility, quality, and sustainability competitive advantages.</div>
+            </div>
+
+            <div class="edu-courses-section">Electives</div>
+
+            <div class="edu-course-item">
+              <div class="edu-course-header">
+                <span class="edu-course-code">MGT 6326</span>
+                <span class="edu-course-credits">3 cr</span>
+              </div>
+              <div class="edu-course-name">Collaborative Product Development</div>
+              <div class="edu-course-desc">Linking product development to marketing and strategic planning — managing development for speed, efficiency, and market impact.</div>
+            </div>
+
+            <div class="edu-course-item">
+              <div class="edu-course-header">
+                <span class="edu-course-code">MGT 6353</span>
+                <span class="edu-course-credits">3 cr</span>
+              </div>
+              <div class="edu-course-name">Operations Strategy</div>
+              <div class="edu-course-desc">Framework for designing and evaluating operations strategy — competitive cost analysis, capacity, facilities, location, and supply chain strategy.</div>
+            </div>
+
+            <div class="edu-course-item">
+              <div class="edu-course-header">
+                <span class="edu-course-code">MGT 6357</span>
+                <span class="edu-course-credits">3 cr</span>
+              </div>
+              <div class="edu-course-name">Service Operations Management</div>
+              <div class="edu-course-desc">Service design, sustainability through servitization, service quality, innovation, and failure recovery in service-oriented firms.</div>
+            </div>
+
+            <div class="edu-course-item">
+              <div class="edu-course-header">
+                <span class="edu-course-code">MGT 6359</span>
+                <span class="edu-course-credits">3 cr</span>
+              </div>
+              <div class="edu-course-name">Business Strategies for Sustainability</div>
+              <div class="edu-course-desc">Holistic view of business-environment interaction — environmental assessment tools, sustainability innovation tournaments.</div>
+            </div>
+
+            <div class="edu-course-item">
+              <div class="edu-course-header">
+                <span class="edu-course-code">MGT 6360</span>
+                <span class="edu-course-credits">3 cr</span>
+              </div>
+              <div class="edu-course-name">Global Operations &amp; Supply Chain Strategy</div>
+              <div class="edu-course-desc">Strategic management of global operations and supply chains — competitive advantage, technology issues, and cross-market coordination.</div>
+            </div>
+
+            <div class="edu-course-item">
+              <div class="edu-course-header">
+                <span class="edu-course-code">MGT 6400</span>
+                <span class="edu-course-credits">3 cr</span>
+              </div>
+              <div class="edu-course-name">Pricing Analytics &amp; Revenue Management</div>
+              <div class="edu-course-desc">Spreadsheet modeling and analytics for optimal pricing — forecasting, market segmentation, versioning, and capacity-based revenue management.</div>
+            </div>
+
+            <div class="edu-course-item">
+              <div class="edu-course-header">
+                <span class="edu-course-code">MGT 6401</span>
+                <span class="edu-course-credits">3 cr</span>
+              </div>
+              <div class="edu-course-name">Supply Chain Modeling</div>
+              <div class="edu-course-desc">Digital supply chain representation to simulate scenarios, identify risks, evaluate strategies, and optimize efficiency, cost, and on-time delivery.</div>
+            </div>
+
+            <div class="edu-course-item">
+              <div class="edu-course-header">
+                <span class="edu-course-code">MGT 6405</span>
+                <span class="edu-course-credits">3 cr</span>
+              </div>
+              <div class="edu-course-name">Lean Six Sigma</div>
+              <div class="edu-course-desc">LEAN tools and principles, DMAIC methodology, quality and statistical tools for process improvement using Minitab.</div>
+            </div>
+
+            <div class="edu-course-item">
+              <div class="edu-course-header">
+                <span class="edu-course-code">MGT 6772</span>
+                <span class="edu-course-credits">3 cr</span>
+              </div>
+              <div class="edu-course-name">Management of Technology</div>
+              <div class="edu-course-desc">How science and technology drive competitive advantage — innovation, strategic planning under uncertainty, global competition, and sustainable design.</div>
+            </div>
+          </div>
         </div>
+
+        <!-- PUPR Card -->
         <div class="edu-card reveal-right">
           <div class="edu-icon"><i class="fas fa-cog"></i></div>
           <div class="edu-degree">B.S. Industrial Engineering</div>
           <div class="edu-school">Polytechnic University of Puerto Rico</div>
           <div class="edu-concentration">General Industrial Engineering</div>
-          <div class="edu-concentration">&nbsp;</div>
           <div class="edu-date">Graduated Sept 2017</div>
+
+          <button class="edu-expand-btn" onclick="toggleCourses('pupr-courses', this)" aria-expanded="false">
+            <i class="fas fa-book-open"></i> View Courses <i class="fas fa-chevron-down edu-chevron"></i>
+          </button>
+
+          <div class="edu-courses" id="pupr-courses">
+            <div class="edu-courses-section">Industrial Engineering Core (62 Credits)</div>
+
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 1000</span></div>
+              <div class="edu-course-name">Introduction to Industrial Engineering</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 1560</span></div>
+              <div class="edu-course-name">Introduction to Project Management</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 1611</span></div>
+              <div class="edu-course-name">Computer Tools for Industrial Engineering Lab I</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 2110</span></div>
+              <div class="edu-course-name">Financial and Cost Accounting</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 2210</span></div>
+              <div class="edu-course-name">Probability for Engineers</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 2220</span></div>
+              <div class="edu-course-name">Statistics for Engineers</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 2310</span></div>
+              <div class="edu-course-name">Work Design and Human Factors</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 2311</span></div>
+              <div class="edu-course-name">Work Design and Human Factors Lab</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 2611</span></div>
+              <div class="edu-course-name">Computer Tools for Industrial Engineering Lab II</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 3222</span></div>
+              <div class="edu-course-name">Statistical Quality Control</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 3360</span></div>
+              <div class="edu-course-name">Job Design and Work Measurement</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 3361</span></div>
+              <div class="edu-course-name">Job Design and Work Measurement Lab</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 3410</span></div>
+              <div class="edu-course-name">Materials Management and Inventory Control</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 3422</span></div>
+              <div class="edu-course-name">Operations Research Models I</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 3510</span></div>
+              <div class="edu-course-name">Production Planning and Control</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 3522</span></div>
+              <div class="edu-course-name">Operations Research Models II</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 3530</span></div>
+              <div class="edu-course-name">Industrial Organizational Behavior</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 3620</span></div>
+              <div class="edu-course-name">Modeling and Simulation Analysis</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 3720</span></div>
+              <div class="edu-course-name">Introduction to Systems Engineering</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 4212</span></div>
+              <div class="edu-course-name">Lean Six Sigma</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 4910</span></div>
+              <div class="edu-course-name">Facilities Planning and Design</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 4915</span></div>
+              <div class="edu-course-name">Facilities Planning and Design Project</div>
+            </div>
+            <div class="edu-course-item">
+              <div class="edu-course-header"><span class="edu-course-code">IE 4999</span></div>
+              <div class="edu-course-name">Capstone Design Course</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -2369,7 +2667,7 @@
     const ctx = canvas.getContext('2d');
     let starMouseX = 0, starMouseY = 0;
     const stars = [];
-    const STAR_COUNT = 200;
+    const STAR_COUNT = 450;
     const CONNECTION_DIST = 120;
     const MOUSE_RADIUS = 150;
 
@@ -2806,7 +3104,24 @@
       toggle.querySelector('span').textContent = isOpen ? 'Show Details' : 'Hide Details';
     }
 
-
+    // ==========================================
+    // EDUCATION COURSES EXPAND/COLLAPSE
+    // ==========================================
+    function toggleCourses(id, btn) {
+      const panel = document.getElementById(id);
+      const isOpen = panel.classList.contains('open');
+      panel.classList.toggle('open');
+      btn.classList.toggle('open');
+      btn.setAttribute('aria-expanded', !isOpen);
+      const label = btn.querySelector('span') || btn.childNodes[1];
+      // Update button text node (first text node after the icon)
+      for (const node of btn.childNodes) {
+        if (node.nodeType === 3) { // text node
+          node.textContent = isOpen ? ' View Courses ' : ' Hide Courses ';
+          break;
+        }
+      }
+    }
 
     // ==========================================
     // SMOOTH SCROLL POLYFILL for older browsers
