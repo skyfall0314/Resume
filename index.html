@@ -418,16 +418,15 @@
       75% { transform: translate(30px, 20px) rotate(270deg); }
     }
 
-    /* Grid pattern overlay */
-    .hero-grid {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-      background-size: 60px 60px;
-      opacity: 0.3;
+    /* Starfield Canvas */
+    .starfield {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
       z-index: 0;
+      pointer-events: none;
     }
 
     .hero-content {
@@ -661,6 +660,217 @@
       color: var(--text-secondary);
       margin-top: 4px;
       font-weight: 500;
+    }
+    .stat-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 12px;
+      line-height: 1.5;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+    }
+    .stat-card:hover .stat-desc {
+      max-height: 200px;
+      opacity: 1;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 20000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      padding: 20px;
+    }
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-content {
+      background: var(--bg-card-solid);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      max-width: 700px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      position: relative;
+      transform: translateY(20px) scale(0.95);
+      transition: transform 0.3s ease;
+    }
+    .modal-overlay.open .modal-content {
+      transform: translateY(0) scale(1);
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: all var(--transition);
+    }
+    .modal-close:hover {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+    .modal-title {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+    .modal-subtitle {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 28px;
+    }
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 600px) {
+      .modal-grid { grid-template-columns: 1fr; }
+    }
+    .modal-company-card {
+      padding: 24px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+    }
+    .modal-company-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 6px;
+      color: #fff;
+      font-family: var(--font-heading);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+    .modal-company-card h4 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+    .modal-company-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .modal-product-list {
+      list-style: none;
+    }
+    .modal-product-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-product-list li:last-child { border-bottom: none; }
+    .modal-product-list li i {
+      color: var(--accent-cyan);
+      width: 20px;
+      text-align: center;
+    }
+
+    /* Product photo cards */
+    .modal-content-wide {
+      max-width: 860px;
+    }
+    .modal-section-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .modal-section-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+    .modal-product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+    @media (max-width: 640px) {
+      .modal-product-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .modal-product-card {
+      background: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      transition: all var(--transition);
+    }
+    .modal-product-card:hover {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 20px var(--glow-cyan);
+      transform: translateY(-3px);
+    }
+    .modal-product-card-wide {
+      grid-column: span 2;
+    }
+    @media (max-width: 640px) {
+      .modal-product-card-wide { grid-column: span 2; }
+    }
+    .modal-product-img-wrap {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: var(--bg-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 12px;
+    }
+    .modal-product-img-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      transition: transform 0.4s ease;
+    }
+    .modal-product-card:hover .modal-product-img-wrap img {
+      transform: scale(1.06);
+    }
+    .modal-product-info {
+      padding: 12px 14px;
+      border-top: 1px solid var(--border);
+    }
+    .modal-product-name {
+      font-family: var(--font-heading);
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+    .modal-product-type {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.3;
     }
 
     @media (max-width: 768px) {
@@ -1457,8 +1667,9 @@
 
     /* Print styles */
     @media print {
-      .nav, .scroll-progress, .cursor-glow, .back-to-top, .loader,
-      .hero-bg, .hero-grid, .theme-toggle, .scroll-indicator { display: none; }
+      .nav, .scroll-progress, .cursor-glow, .cursor-ring, .cursor-dot,
+      .back-to-top, .loader, .hero-bg, .starfield, .theme-toggle,
+      .scroll-indicator, .modal-overlay { display: none; }
       body { background: #fff; color: #000; }
       section { padding: 20px 0; }
     }
@@ -1507,13 +1718,11 @@
        HERO SECTION
        ========================================== -->
   <section class="hero" id="hero">
+    <canvas class="starfield" id="starfield"></canvas>
     <div class="hero-bg">
       <div class="shape shape-1"></div>
       <div class="shape shape-2"></div>
-      <div class="shape shape-3"></div>
-      <div class="shape shape-4"></div>
     </div>
-    <div class="hero-grid"></div>
 
     <div class="hero-content">
       <div class="hero-badge">
@@ -1558,18 +1767,94 @@
       <div class="stat-card">
         <div class="stat-number"><span class="counter" data-target="8">0</span>+</div>
         <div class="stat-label">Years Experience</div>
+        <div class="stat-desc">From Manufacturing Engineer to Operations Program Manager — spanning procurement, NPI, supply chain strategy, and data center operations across global networks.</div>
       </div>
       <div class="stat-card">
         <div class="stat-number"><span class="counter" data-target="100">0</span>%</div>
         <div class="stat-label">On-Time Delivery</div>
+        <div class="stat-desc">Maintained flawless delivery performance on hyperscale engineered-to-order chiller programs — managing end-to-end operations from order release through customer delivery.</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number">$<span class="counter" data-target="4" data-decimal="5">0</span>M+</div>
+        <div class="stat-number">$<span class="counter" data-target="6" data-decimal="9">0</span>M+</div>
         <div class="stat-label">Cost Savings Delivered</div>
+        <div class="stat-desc">Achieved through strategic supplier transitions, SKU consolidation, inventory reconfigurations, procurement optimization, and product portfolio rationalization.</div>
       </div>
-      <div class="stat-card">
+      <div class="stat-card" style="cursor: pointer;" onclick="document.getElementById('productsModal').classList.add('open')">
         <div class="stat-number"><span class="counter" data-target="60">0</span>+</div>
         <div class="stat-label">Products Managed</div>
+        <div class="stat-desc">Full lifecycle ownership across NCR and Carrier — from point-of-sale systems and self-checkout terminals to hyperscale data center chillers. <span style="color: var(--accent-cyan); font-weight: 600;">Click to explore →</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Products Modal -->
+  <div class="modal-overlay" id="productsModal">
+    <div class="modal-content modal-content-wide">
+      <button class="modal-close" onclick="document.getElementById('productsModal').classList.remove('open')" aria-label="Close modal">
+        <i class="fas fa-times"></i>
+      </button>
+      <h3 class="modal-title">Products <span class="gradient-text">Managed</span></h3>
+      <p class="modal-subtitle">Full lifecycle program management across two Fortune 500 companies — 60+ products from NPI through end-of-life</p>
+
+      <!-- NCR Section -->
+      <div class="modal-section-label">
+        <div class="modal-company-badge" style="background: linear-gradient(135deg, #00aa44, #00cc66);">NCR CORPORATION</div>
+        <span class="modal-section-desc">Retail &amp; Financial Technology · POS, Kiosks, Self-Checkout &amp; Peripherals</span>
+      </div>
+      <div class="modal-product-grid">
+        <div class="modal-product-card">
+          <div class="modal-product-img-wrap">
+            <img src="images/ncr-xr7.png" alt="NCR XR7 Plus POS Terminal" loading="lazy">
+          </div>
+          <div class="modal-product-info">
+            <div class="modal-product-name">NCR XR7 Plus</div>
+            <div class="modal-product-type">Point-of-Sale Terminal</div>
+          </div>
+        </div>
+        <div class="modal-product-card">
+          <div class="modal-product-img-wrap">
+            <img src="images/ncr-printer.png" alt="NCR Printer" loading="lazy">
+          </div>
+          <div class="modal-product-info">
+            <div class="modal-product-name">NCR Printer</div>
+            <div class="modal-product-type">Receipt &amp; Document Printer</div>
+          </div>
+        </div>
+        <div class="modal-product-card">
+          <div class="modal-product-img-wrap">
+            <img src="images/ncr-2246-kiosk.png" alt="NCR 2246 Kiosk" loading="lazy">
+          </div>
+          <div class="modal-product-info">
+            <div class="modal-product-name">NCR 2246</div>
+            <div class="modal-product-type">Self-Service Kiosk</div>
+          </div>
+        </div>
+        <div class="modal-product-card">
+          <div class="modal-product-img-wrap">
+            <img src="images/ncr-7709-sco.png" alt="NCR 7709 Self-Checkout" loading="lazy">
+          </div>
+          <div class="modal-product-info">
+            <div class="modal-product-name">NCR 7709</div>
+            <div class="modal-product-type">Self-Checkout System</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carrier Section -->
+      <div class="modal-section-label" style="margin-top: 28px;">
+        <div class="modal-company-badge" style="background: linear-gradient(135deg, #0066cc, #0099ff);">CARRIER CORPORATION</div>
+        <span class="modal-section-desc">Data Center Solutions · Hyperscale Engineered-to-Order Cooling</span>
+      </div>
+      <div class="modal-product-grid">
+        <div class="modal-product-card modal-product-card-wide">
+          <div class="modal-product-img-wrap">
+            <img src="images/carrier-19xr.png" alt="Carrier 19XR Chiller" loading="lazy">
+          </div>
+          <div class="modal-product-info">
+            <div class="modal-product-name">Carrier 19XR</div>
+            <div class="modal-product-type">Hyperscale Water-Cooled Centrifugal Chiller · Data Center Cooling</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -2077,6 +2362,147 @@
         document.getElementById('loader').classList.add('hidden');
       }, 800);
     });
+    // ==========================================
+    // INTERACTIVE STARFIELD
+    // ==========================================
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let starMouseX = 0, starMouseY = 0;
+    const stars = [];
+    const STAR_COUNT = 200;
+    const CONNECTION_DIST = 120;
+    const MOUSE_RADIUS = 150;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Track mouse for starfield interaction
+    document.addEventListener('mousemove', (e) => {
+      starMouseX = e.clientX;
+      starMouseY = e.clientY;
+    });
+
+    class Star {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.baseX = this.x;
+        this.baseY = this.y;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 0.3;
+        this.speedY = (Math.random() - 0.5) * 0.3;
+        this.opacity = Math.random() * 0.6 + 0.2;
+        this.twinkleSpeed = Math.random() * 0.02 + 0.005;
+        this.twinkleOffset = Math.random() * Math.PI * 2;
+        // Color: mix of cyan and purple
+        this.hue = Math.random() > 0.6 ? 188 : 263;
+      }
+      update(time) {
+        // Gentle drift
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        // Wrap around edges
+        if (this.x < -10) this.x = canvas.width + 10;
+        if (this.x > canvas.width + 10) this.x = -10;
+        if (this.y < -10) this.y = canvas.height + 10;
+        if (this.y > canvas.height + 10) this.y = -10;
+
+        // Mouse repulsion / attraction
+        const dx = this.x - starMouseX;
+        const dy = this.y - starMouseY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < MOUSE_RADIUS && dist > 0) {
+          const force = (MOUSE_RADIUS - dist) / MOUSE_RADIUS;
+          const angle = Math.atan2(dy, dx);
+          this.x += Math.cos(angle) * force * 3;
+          this.y += Math.sin(angle) * force * 3;
+        }
+
+        // Twinkle
+        this.currentOpacity = this.opacity + Math.sin(time * this.twinkleSpeed + this.twinkleOffset) * 0.2;
+      }
+      draw() {
+        const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+        const saturation = isDark ? '100%' : '80%';
+        const lightness = isDark ? '60%' : '40%';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = `hsla(${this.hue}, ${saturation}, ${lightness}, ${Math.max(0, this.currentOpacity)})`;
+        ctx.fill();
+
+        // Glow effect for larger stars
+        if (this.size > 1.2) {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
+          ctx.fillStyle = `hsla(${this.hue}, ${saturation}, ${lightness}, ${Math.max(0, this.currentOpacity * 0.1)})`;
+          ctx.fill();
+        }
+      }
+    }
+
+    // Create stars
+    for (let i = 0; i < STAR_COUNT; i++) {
+      stars.push(new Star());
+    }
+
+    function drawConnections() {
+      const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+      for (let i = 0; i < stars.length; i++) {
+        for (let j = i + 1; j < stars.length; j++) {
+          const dx = stars[i].x - stars[j].x;
+          const dy = stars[i].y - stars[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < CONNECTION_DIST) {
+            const opacity = (1 - dist / CONNECTION_DIST) * 0.15;
+            ctx.beginPath();
+            ctx.moveTo(stars[i].x, stars[i].y);
+            ctx.lineTo(stars[j].x, stars[j].y);
+            ctx.strokeStyle = isDark
+              ? `rgba(0, 212, 255, ${opacity})`
+              : `rgba(0, 100, 180, ${opacity})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw connections to mouse
+      for (let i = 0; i < stars.length; i++) {
+        const dx = stars[i].x - starMouseX;
+        const dy = stars[i].y - starMouseY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < MOUSE_RADIUS) {
+          const opacity = (1 - dist / MOUSE_RADIUS) * 0.3;
+          ctx.beginPath();
+          ctx.moveTo(stars[i].x, stars[i].y);
+          ctx.lineTo(starMouseX, starMouseY);
+          ctx.strokeStyle = isDark
+            ? `rgba(124, 58, 237, ${opacity})`
+            : `rgba(109, 40, 217, ${opacity})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+      }
+    }
+
+    function animateStarfield(time) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(star => {
+        star.update(time);
+        star.draw();
+      });
+      drawConnections();
+      requestAnimationFrame(animateStarfield);
+    }
+    requestAnimationFrame(animateStarfield);
 
     // ==========================================
     // CURSOR EFFECTS (Desktop Only)
@@ -2393,6 +2819,23 @@
           target.scrollIntoView({ behavior: 'smooth' });
         }
       });
+    });
+
+    // ==========================================
+    // MODAL CLOSE HANDLERS
+    // ==========================================
+    const productsModal = document.getElementById('productsModal');
+    // Close on overlay click
+    productsModal.addEventListener('click', (e) => {
+      if (e.target === productsModal) {
+        productsModal.classList.remove('open');
+      }
+    });
+    // Close on ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        productsModal.classList.remove('open');
+      }
     });
   </script>
 </body>
