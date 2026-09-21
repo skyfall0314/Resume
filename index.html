@@ -166,7 +166,7 @@
     }
 
     /* =============================================
-       CURSOR GLOW (Desktop Only)
+       CURSOR EFFECTS (Desktop Only)
        ============================================= */
     .cursor-glow {
       position: fixed;
@@ -181,6 +181,57 @@
       transition: opacity 0.3s ease;
     }
     .cursor-glow.active { opacity: 1; }
+
+    /* Cursor ring */
+    .cursor-ring {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      border: 2px solid var(--accent-cyan);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10002;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s ease, height 0.2s ease, border-color 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+      mix-blend-mode: difference;
+    }
+    .cursor-ring.active { opacity: 0.6; }
+    .cursor-ring.hover {
+      width: 60px;
+      height: 60px;
+      border-color: var(--accent-purple);
+    }
+
+    /* Cursor dot */
+    .cursor-dot {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background: var(--accent-cyan);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10003;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      box-shadow: 0 0 10px var(--accent-cyan), 0 0 20px var(--glow-cyan);
+    }
+    .cursor-dot.active { opacity: 1; }
+
+    /* Particle trail */
+    .cursor-particle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 10001;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      animation: cursorParticleFade 0.8s ease-out forwards;
+    }
+    @keyframes cursorParticleFade {
+      0% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+    }
 
     /* =============================================
        NAVIGATION
@@ -1423,8 +1474,10 @@
     </div>
   </div>
 
-  <!-- Cursor Glow -->
+  <!-- Cursor Effects -->
   <div class="cursor-glow" id="cursorGlow"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
 
   <!-- Scroll Progress Bar -->
   <div class="scroll-progress" id="scrollProgress"></div>
@@ -1587,10 +1640,10 @@
               <span class="info-card-title">Core Expertise</span>
             </div>
             <div class="info-card-items">
-              <span class="info-tag">Operations PM</span>
+              <span class="info-tag">Operations Program Management</span>
               <span class="info-tag">Supply Chain</span>
               <span class="info-tag">NPI Readiness</span>
-              <span class="info-tag">Category Mgmt</span>
+              <span class="info-tag">Category Management</span>
               <span class="info-tag">SIOP</span>
               <span class="info-tag">Risk Management</span>
             </div>
@@ -1668,7 +1721,7 @@
             <div class="timeline-date">Aug 2023 – May 2026</div>
             <div class="timeline-company">CARRIER CORPORATION</div>
             <h3 class="timeline-role">Schedule B Project Manager</h3>
-            <div class="timeline-location"><i class="fas fa-map-marker-alt"></i> Atlanta, GA &nbsp;|&nbsp; EM Category Management</div>
+            <div class="timeline-location"><i class="fas fa-map-marker-alt"></i> Atlanta, GA &nbsp;|&nbsp; Electromechanical Category Management</div>
             <ul class="timeline-bullets">
               <li>Achieved $3.4 million in cost savings by strategically transitioning parts to new suppliers and optimizing procurement processes.</li>
               <li>Generated $113K in cost savings by consolidating SKUs, reducing procurement complexity, and optimizing inventory management.</li>
@@ -1697,9 +1750,9 @@
               <li>Successfully launched an average of 3 new product introduction (NPI) programs per year, meeting all timeline, quality, and budget targets.</li>
               <li>Oversaw cross-functional operations NPI/Lifecycle for assigned programs (managed over 60 products).</li>
               <li>Managed excess product inventory and drove over 700 reconfigurations to reduce excess inventory by $1.1 million yearly average ($3.3M total).</li>
-              <li>Developed and led program management team through multiple PM processes, resulting in formal 30/60/90 onboarding training and a proven reduction in learning curve.</li>
+              <li>Developed and led program management team through multiple program management processes, resulting in formal 30/60/90 onboarding training and a proven reduction in learning curve.</li>
               <li>Analyzed and reduced product portfolio by discontinuing non-value-added products, leading to a 30% savings in operational costs.</li>
-              <li>Introduced formal discontinuation process for EOL products, reducing EOL excess inventory by more than 60%.</li>
+              <li>Introduced formal discontinuation process for end-of-life products, reducing end-of-life excess inventory by more than 60%.</li>
               <li>Managed Engineering Change Control (ECC) impacts to operations schedules.</li>
             </ul>
             <button class="timeline-toggle" aria-label="Toggle details">
@@ -1884,11 +1937,11 @@
           </div>
           <div class="skill-tags">
             <span class="skill-tag">Lean Six Sigma (DMAIC)</span>
-            <span class="skill-tag">Agile PM</span>
-            <span class="skill-tag">Traditional PM</span>
+            <span class="skill-tag">Agile Project Management</span>
+            <span class="skill-tag">Traditional Project Management</span>
             <span class="skill-tag">SIOP</span>
             <span class="skill-tag">Category Management</span>
-            <span class="skill-tag">ECC Management</span>
+            <span class="skill-tag">Engineering Change Control</span>
             <span class="skill-tag">Product Transfer</span>
             <span class="skill-tag">Data-Driven Execution</span>
           </div>
@@ -1944,14 +1997,6 @@
             </div>
           </a>
 
-          <a href="tel:+17065050308" class="contact-item" style="text-decoration: none;">
-            <div class="contact-item-icon"><i class="fas fa-phone"></i></div>
-            <div class="contact-item-info">
-              <div class="contact-item-label">Phone</div>
-              <div class="contact-item-value">706-505-0308</div>
-            </div>
-          </a>
-
           <a href="https://www.linkedin.com/in/cfranco1812" target="_blank" class="contact-item" style="text-decoration: none;">
             <div class="contact-item-icon"><i class="fab fa-linkedin-in"></i></div>
             <div class="contact-item-info">
@@ -1959,43 +2004,22 @@
               <div class="contact-item-value">linkedin.com/in/cfranco1812</div>
             </div>
           </a>
-
-          <div class="contact-item">
-            <div class="contact-item-icon"><i class="fas fa-map-marker-alt"></i></div>
-            <div class="contact-item-info">
-              <div class="contact-item-label">Location</div>
-              <div class="contact-item-value">Atlanta, GA</div>
-            </div>
-          </div>
         </div>
 
-        <div class="contact-form-wrapper reveal-right">
-          <!-- 
-            SETUP: Create a free account at https://formspree.io 
-            Replace YOUR_FORM_ID below with your Formspree form ID.
-            Example: action="https://formspree.io/f/xyzabcde"
-          -->
-          <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-            <div class="form-group">
-              <label class="form-label" for="name">Your Name</label>
-              <input class="form-input" type="text" id="name" name="name" placeholder="John Doe" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="email">Your Email</label>
-              <input class="form-input" type="email" id="email" name="email" placeholder="john@company.com" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="subject">Subject</label>
-              <input class="form-input" type="text" id="subject" name="subject" placeholder="Job Opportunity">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="message">Message</label>
-              <textarea class="form-textarea" id="message" name="message" placeholder="I'd like to discuss a position..." required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary form-submit">
-              <i class="fas fa-paper-plane"></i> Send Message
-            </button>
-          </form>
+        <div class="contact-form-wrapper reveal-right" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 32px;">
+          <div>
+            <div style="font-size: 3rem; margin-bottom: 16px;">🤝</div>
+            <h3 style="font-size: 1.4rem; font-weight: 700; margin-bottom: 8px;">Let's Connect</h3>
+            <p style="color: var(--text-secondary); font-size: 0.95rem;">Reach out through any of these platforms</p>
+          </div>
+          <div style="display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;">
+            <a href="https://www.linkedin.com/in/cfranco1812" target="_blank" class="btn btn-primary" style="text-decoration: none;">
+              <i class="fab fa-linkedin-in"></i> Connect on LinkedIn
+            </a>
+            <a href="mailto:Cfranco1812@gmail.com" class="btn btn-outline" style="text-decoration: none;">
+              <i class="fas fa-envelope"></i> Send an Email
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -2055,18 +2079,87 @@
     });
 
     // ==========================================
-    // CURSOR GLOW (Desktop Only)
+    // CURSOR EFFECTS (Desktop Only)
     // ==========================================
     const cursorGlow = document.getElementById('cursorGlow');
+    const cursorRing = document.getElementById('cursorRing');
+    const cursorDot = document.getElementById('cursorDot');
+
     if (window.matchMedia('(pointer: fine)').matches) {
+      let mouseX = 0, mouseY = 0;
+      let ringX = 0, ringY = 0;
+      let particleCount = 0;
+      const maxParticles = 20;
+
       document.addEventListener('mousemove', (e) => {
-        cursorGlow.style.left = e.clientX + 'px';
-        cursorGlow.style.top = e.clientY + 'px';
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        // Dot follows exactly
+        cursorDot.style.left = mouseX + 'px';
+        cursorDot.style.top = mouseY + 'px';
+        cursorDot.classList.add('active');
+
+        // Glow follows exactly
+        cursorGlow.style.left = mouseX + 'px';
+        cursorGlow.style.top = mouseY + 'px';
         cursorGlow.classList.add('active');
+
+        cursorRing.classList.add('active');
+
+        // Spawn particle trail
+        if (particleCount < maxParticles) {
+          spawnParticle(mouseX, mouseY);
+        }
       });
+
+      // Smooth ring follow with lerp
+      function animateRing() {
+        ringX += (mouseX - ringX) * 0.15;
+        ringY += (mouseY - ringY) * 0.15;
+        cursorRing.style.left = ringX + 'px';
+        cursorRing.style.top = ringY + 'px';
+        requestAnimationFrame(animateRing);
+      }
+      animateRing();
+
+      // Hover effect on interactive elements
+      document.querySelectorAll('a, button, .timeline-card, .skill-tag, .stat-card, .contact-item, .interest-card').forEach(el => {
+        el.addEventListener('mouseenter', () => cursorRing.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursorRing.classList.remove('hover'));
+      });
+
       document.addEventListener('mouseleave', () => {
         cursorGlow.classList.remove('active');
+        cursorRing.classList.remove('active');
+        cursorDot.classList.remove('active');
       });
+
+      // Particle spawner
+      let lastSpawn = 0;
+      function spawnParticle(x, y) {
+        const now = Date.now();
+        if (now - lastSpawn < 30) return; // throttle
+        lastSpawn = now;
+        particleCount++;
+
+        const particle = document.createElement('div');
+        particle.className = 'cursor-particle';
+        const size = Math.random() * 6 + 3;
+        const hue = Math.random() > 0.5 ? '188, 100%, 50%' : '263, 82%, 58%'; // cyan or purple
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        particle.style.left = x + (Math.random() - 0.5) * 10 + 'px';
+        particle.style.top = y + (Math.random() - 0.5) * 10 + 'px';
+        particle.style.background = `hsl(${hue})`;
+        particle.style.boxShadow = `0 0 ${size * 2}px hsl(${hue})`;
+        document.body.appendChild(particle);
+
+        setTimeout(() => {
+          particle.remove();
+          particleCount--;
+        }, 800);
+      }
     }
 
     // ==========================================
@@ -2287,23 +2380,7 @@
       toggle.querySelector('span').textContent = isOpen ? 'Show Details' : 'Hide Details';
     }
 
-    // ==========================================
-    // CONTACT FORM
-    // ==========================================
-    const contactForm = document.getElementById('contactForm');
-    contactForm.addEventListener('submit', async (e) => {
-      const action = contactForm.getAttribute('action');
-      // If Formspree is not configured, fallback to mailto
-      if (action.includes('YOUR_FORM_ID')) {
-        e.preventDefault();
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const subject = document.getElementById('subject').value;
-        const message = document.getElementById('message').value;
-        const mailtoLink = `mailto:Cfranco1812@gmail.com?subject=${encodeURIComponent(subject || 'Resume Website Inquiry')}&body=${encodeURIComponent(`From: ${name} (${email})\n\n${message}`)}`;
-        window.location.href = mailtoLink;
-      }
-    });
+
 
     // ==========================================
     // SMOOTH SCROLL POLYFILL for older browsers
